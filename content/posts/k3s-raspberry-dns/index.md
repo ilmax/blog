@@ -1,6 +1,6 @@
 ---
 title: "Install K3s on a Raspberry PI - Automatic external DNS management"
-description: Let's learn how to use ExternalDNS to automatically synchronize DNS record with CloudFlare or any other DNS provider in Kubernetes
+description: Let's learn how to use ExternalDNS to automate DNS record management with CloudFlare or any other DNS provider in Kubernetes
 date: 2024-08-05T21:11:10+02:00
 draft: false
 series: ["K3s on Raspberry PI"]
@@ -97,7 +97,7 @@ We will now proceed to install ExternalDNS using its Helm Chart.
 1. Add the ExternalDNS repo to Helm
 
     ```sh
-    helm repo add external-dns-system https://kubernetes-sigs.github.io/external-dns/
+    helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
     helm repo update
     ```
 
