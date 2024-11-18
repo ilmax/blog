@@ -29,13 +29,20 @@ jobs:
               content: '+1'
             })
 
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Optimizing images in (progress...)[${{ github.workflow.run_html_url }}]'
+            })
+
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Checkout PR branch
-        run: git checkout --progress --force refs/remotes/pull/${{ github.event.issue.number }}/merge
+        run: git checkout --progress --force refs/pull/${{ github.event.issue.number }}/merge
 
       - name: Optimize images
         id: optimize-images
