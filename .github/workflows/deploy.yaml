@@ -18,6 +18,12 @@ jobs:
       HUGO_ENV: production
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
+
       - name: Build Hugo site
         uses: ./.github/build
 
