@@ -29,12 +29,15 @@ runs:
           echo "No images have been changed"
           echo "any_changed=false" >> $GITHUB_OUTPUT
         else
-          echo "Images have been changed, will optimize them!"
-          echo "any_changed=true" >> $GITHUB_OUTPUT
+          echo "Images have been changed, starting image compression..."
+          for file in "$changed_images[@]"; do
+            echo compressing image "$file"
+            optimizt --verbose -l "$file"
+          done
+          changed=$(git status | grep modified | wc -l)
+          if [ $changed -gt 0 ]; then
+            echo "any_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "any_changed=false" >> $GITHUB_OUTPUT
+          fi 
         fi
-        echo Starting image compression
-        for file in $changed_images; do
-          echo compressing image $file 
-          optimizt --verbose -l $file
-        done
-
