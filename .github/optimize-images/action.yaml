@@ -33,6 +33,7 @@ runs:
           echo "any_changed=true" >> $GITHUB_OUTPUT
         fi
         echo Starting image compression
+        echo $changed_images
         for file in $changed_images; do
           echo compressing image "$file"
           optimizt --verbose -l "$file"
