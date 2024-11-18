@@ -35,7 +35,7 @@ jobs:
           fetch-depth: 0
 
       - name: Checkout PR branch
-        run: git checkout --progress --force refs/remotes/pull/${{ github.event.issue.pull_request.number }}/merge
+        run: git checkout --progress --force refs/remotes/pull/${{ github.event.issue.number }}/merge
 
       - name: Optimize images
         id: optimize-images
