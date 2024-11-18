@@ -34,7 +34,7 @@ runs:
         fi
         echo Starting image compression
         for file in $changed_images; do
-          echo compressing image $file 
-          optimizt --verbose -l $file
+          echo compressing image "$file"
+          optimizt --verbose -l "$file"
         done
 
