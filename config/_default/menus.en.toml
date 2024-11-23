@@ -20,5 +20,12 @@ pageRef = "about"
 identifier = "s6G9nsYI46"
 weight = 9999
 
+[[main]]
+name = "Gists"
+pre = "fire"
+pageRef = "gists"
+identifier = "KwLiSC6qSI"
+weight = 9999
+
 [[footer]]
 none = "none"
