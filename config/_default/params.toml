@@ -112,7 +112,7 @@ cardViewScreenWidth = false
 [verification]
 
 [giscus]
-repo = 'ilmax/site'
+repo = 'ilmax/blog'
 repoID = 'R_kgDOIvGqCw'
 category = 'Post Comments'
 categoryID = 'DIC_kwDOIvGqC84CTeD0'
