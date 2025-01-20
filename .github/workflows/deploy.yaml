@@ -74,7 +74,7 @@ jobs:
           name: github-pages
 
       - name: Submit pages to Google Search Console
-        uses: robingenz/action-google-indexing@v1.0.1
+        uses: robingenz/action-google-indexing@v1.0.2
         with:
           siteUrl: maxdon.tech
           gcpServiceAccountKey: ${{ secrets.GOOGLE_KEY }}
