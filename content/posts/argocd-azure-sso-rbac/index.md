@@ -1,7 +1,7 @@
 ---
 title: "Configuring SSO and RBAC with Azure Entra ID on ArgoCD via Terraform"
 date: 2025-04-16T15:29:39+02:00
-draft: true
+draft: false
 tags: [azure, kubernetes, terraform]
 ---
 
