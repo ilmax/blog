@@ -60,9 +60,8 @@ Once endpoints are marked as obsolete, we need to emit custom telemetry every ti
 
 [Filters](https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-8.0) in MVC are a very powerful way of executing custom code in various stages of the HTTP request pipeline.
 
-{{< figure src="images/mvc-filters-min.png" alt="images/mvc-filters-min.png" nozoom=true default=true class="flex items-center justify-center" >}}
+{{< figure src="images/mvc-filters.png" alt="ASP.NET Core filters pipeline" nozoom=true default=true class="flex items-center justify-center" >}}
 _Image courtesy of [https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-8.0](https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-8.0)_
-
 
 As you can see from the image above, the best option is to implement an ActionFilter that runs just before and after our controller action. The code is quite straightforward, we check if our action (the method in the controller that implements the HTTP API) has the obsolete attribute and we emit some telemetry as shown below:
 
