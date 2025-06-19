@@ -223,7 +223,6 @@ I implemented the `BlogId` and `PostId` using records to keep the code succinct,
 
 Please also note that EF Core 7 has a few issues that will be resolved in the coming months so you may want to wait for some of these issues to be resolved before pushing it to prod.
 
-<!-- {{< twitter user="ErikEJ" id="1593244935939305474" >}} -->
-{{< twitter user="ErikEJ" id="1593244935939305474" >}}
+{{< x user="ErikEJ" id="1593244935939305474" >}}
 
 I hope you enjoyed this article, till the next time!

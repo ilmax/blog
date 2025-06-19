@@ -11,7 +11,7 @@ In this mini series I will go through some challenges and the solutions I applie
 
 EF Core has been out for a while now (according to [Wikipedia](https://en.wikipedia.org/wiki/Entity_Framework) it's been released on 27/6/2016) and since day one it had support for an in [memory database provider](https://docs.microsoft.com/en-us/ef/core/providers/in-memory/?tabs=dotnet-core-cli). The aim of the in memory database provider is to simplify testing and if you compare what it takes now to write test against an Entity Framework Core DbContext compared to the old Entity Framework one you can see how much easier it's now compared to the experience we had back then.
 
-I won't go into why the in memory database is not the best bet for integration testing, [Jimmy Bogard](https://twitter.com/jbogard) already did that long time ago. 
+I won't go into why the in memory database is not the best bet for integration testing, [Jimmy Bogard](https://twitter.com/jbogard) already did that long time ago.
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">blogged about my thoughts on in-memory databases for testing purposes <a href="https://t.co/OZcEQvdMYH">https://t.co/OZcEQvdMYH</a> tl;dr - avoid. it&#39;s not worth the pain/side effects</p>&mdash; Jimmy Bogard 🍻 (@jbogard) <a href="https://twitter.com/jbogard/status/1240343707758534658?ref_src=twsrc%5Etfw">March 18, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 Long story short: there are several limitations introduced by the in memory provider e.g. it doesn't support transactions, so you may end up having to specialize your test code to work around these limitations.
 
@@ -20,6 +20,7 @@ If the in memory provider does satisfy your needs then this mini series is not f
 Starting from SQL Server 2017 it's possible to run the database engine in a container with Docker, so we can take advantage of this in order to run our integration tests on top of a real SQL Server database.
 
 At the end of this series we will have:
+
 - A throw away SQL Server DB so every test run starts from a clean state
 - Integration tests that run on top of a SQL Server running in a docker container
 - Running integration tests via command line (useful in a CI environment)
@@ -96,6 +97,7 @@ services:
             - sql-server-db
 
 ```
+
 So every time the integration tests container starts, we wait until the SQL Server is ready to accept connections, run EF core migrations and run `dotnet test`. Starting from a clean state every time may be a bit slow but it adds, as a bonus the ability to test migrations.
 
 The last piece I added to make it easier to run tests locally, is just a run-tests.cmd file to run `docker-compose` with `--abort-on-container-exit` . It looks like this
