@@ -36,3 +36,4 @@ runs:
             echo "any_changed=false" >> $GITHUB_OUTPUT
           fi
         fi
+
