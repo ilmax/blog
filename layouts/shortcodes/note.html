@@ -1,9 +1,0 @@
-{{ $icon := resources.Get (print "icons/info-solid.svg") }}
-<div class="alert alert-note" dir="auto">
-    <p class="alert-title block">        
-        {{ $icon.Content | safeHTML }} Note
-    </p>
-    <p>
-        {{- .Inner | markdownify -}}
-    </p>
-</div>

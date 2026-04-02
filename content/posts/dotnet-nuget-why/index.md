@@ -11,9 +11,8 @@ This new command is very useful to debug transient dependency issues, the comman
 
 This command is available starting with .NET SDK version 8.0.4xx, so ensure you have at least that version installed. If not, you can download it [here](https://get.dot.net).
 
-{{<tip>}}
-You can access the command's documentation on the [Microsoft website](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-nuget-why)
-{{</tip>}}
+> [!TIP]
+> You can access the command's documentation on the [Microsoft website](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-nuget-why)
 
 You can verify if you have a compatible SDK using the following commands:
 

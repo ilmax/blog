@@ -3,16 +3,16 @@ title: "Configuring SSO and RBAC with Azure Entra ID on ArgoCD via Terraform"
 date: 2025-04-16T15:29:39+02:00
 draft: false
 tags: [azure, kubernetes, terraform]
+type: "featured"
 ---
 
 ArgoCD is a fantastic tool to manage your AKS cluster using a GitOps approach. Configuring SSO and RBAC has been a bit more tricky than I initially anticipated, so I'm writing this short blog post to point out some of the issues I ran into and their solutions.
 
 ## Installation
 
-{{<note>}}
-I use Terraform to install ArgoCD in the AKS cluster, but as of recently (April 2025 at the time of writing), Azure offers a managed ArgoCD cluster extension.
-Currently, it's available as a private preview. You can read about it in the announcement [blog post](https://techcommunity.microsoft.com/blog/azurearcblog/announcing-private-preview-argocd-through-microsoft-gitops/4399747).
-{{</note>}}
+> [!NOTE]
+> I use Terraform to install ArgoCD in the AKS cluster, but as of recently (April 2025 at the time of writing), Azure offers a managed ArgoCD cluster extension.
+> Currently, it's available as a private preview. You can read about it in the announcement [blog post](https://techcommunity.microsoft.com/blog/azurearcblog/announcing-private-preview-argocd-through-microsoft-gitops/4399747).
 
 You can install ArgoCD using the community maintained Helm Chart defined [here](https://github.com/argoproj/argo-helm).
 
@@ -165,9 +165,8 @@ The locals need to be configured with the following values:
 - **az_tenant_id** The tenant of your Azure account. You can get it via the CLI using `az account show --query tenantId` after logging into the az cli.
 - **argocd_admins** The list of user principal names that will be added granted administrative permissions in ArgoCD.
 
-{{<tip>}}
-You can of course add multiple groups, just repeat the same process used for the admin one and update the `policy.csv` accordingly.
-{{</tip>}}
+> [!TIP]
+> You can of course add multiple groups, just repeat the same process used for the admin one and update the `policy.csv` accordingly.
 
 Let's now look at the values file template:
 
@@ -251,9 +250,8 @@ rbac:
 
 Here we define that every user who can log in and is not part of the admin group will be assigned the built-in readonly role, while the user members of the group `${adminGroupId}` will be part of the built-in ArgoCD admin group and have full access to all ArgoCD features.
 
-{{<tip>}}
-You can define multiple groups and assign users to them following
-{{</tip>}}
+> [!TIP]
+> You can define multiple groups and assign users to them following
 
 ```yaml
 server:
@@ -272,9 +270,8 @@ server:
 
 Here we configure the ingress to use application gateway ingress (you may use a different ingress class) and configure `external-dns` and `cert-manager` to automatically get a TLS certificate and update the DNS record.
 
-{{<note>}}
-The configuration of `external-dns` and `cert-manager` is outside the scope of this article, so it's a prerequisite. If you don't use either of these two tools, you can skip all the relative annotations.
-{{</note>}}
+> [!NOTE]
+> The configuration of `external-dns` and `cert-manager` is outside the scope of this article, so it's a prerequisite. If you don't use either of these two tools, you can skip all the relative annotations.
 
 ## Troubleshooting
 

@@ -43,9 +43,8 @@ The DNS-01 challenge process is represented in the following sequence diagram:
 
 {{<figure src="dns01.svg" alt="Let's Encrypt DNS01 challenge" caption="*The diagram DNS-01 challenge*" nozoom=true >}}
 
-{{<tip>}}
-If you want to read more about how the ACME protocol works, you can read the internet standard [RFC 8555](https://datatracker.ietf.org/doc/html/rfc8555)
-{{</tip>}}
+> [!TIP]
+> If you want to read more about how the ACME protocol works, you can read the internet standard [RFC 8555](https://datatracker.ietf.org/doc/html/rfc8555)
 
 ### DNS Registrar
 
@@ -121,9 +120,8 @@ Let's see here below what the configuration looks like:
                key: api-key                     # Matches the key of the secret created earlier
    ```
 
-  {{<caution>}}
-  Make sure you replace the email in the manifest above.
-  {{</caution>}}
+  > [!CAUTION]
+  > Make sure you replace the email in the manifest above.
 
 1. Create the staging `ClusterIssuer` in the cluster
 
@@ -131,9 +129,8 @@ Let's see here below what the configuration looks like:
     kubectl apply -f clusterissuer-staging.yml
     ```
 
-{{<warn>}}
-If you use a different namespace than `cert-issuer`, you may need to configure the Cluster Issuer Namespace to specify cert-manager in which namespace to look for the Cloudflare secret. Make sure to read the documentation [here](https://cert-manager.io/docs/configuration/#cluster-resource-namespace)
-{{</warn>}}
+> [!WARNING]
+> If you use a different namespace than `cert-issuer`, you may need to configure the Cluster Issuer Namespace to specify cert-manager in which namespace to look for the Cloudflare secret. Make sure to read the documentation [here](https://cert-manager.io/docs/configuration/#cluster-resource-namespace)
 
 ### Verify staging ClusterIssuer installation
 
@@ -181,9 +178,8 @@ After the record has been created, it's time to test the certificate-issuing pro
      - k3s.maxdon.tech                        # This should be the same name of the A record created in Cloudflare earlier
    ```
 
-  {{<caution>}}
-  Make sure you replace the domain **k3s.maxdon.tech** with your domain.
-  {{</caution>}}
+  > [!CAUTION]
+  > Make sure you replace the domain **k3s.maxdon.tech** with your domain.
 
 1. Create the test certificate in the cluster
 
@@ -199,9 +195,8 @@ NAME               READY   SECRET             AGE
 test-certificate   True   test-example-tls    75s
 ```
 
-{{<note>}}
-Please note that this step can take up to a couple of minutes when using the DNS-01 challenge!
-{{</note>}}
+> [!NOTE]
+> Please note that this step can take up to a couple of minutes when using the DNS-01 challenge!
 
 If the process went well, we now have a secret that contains our certificate, the name of the secret is defined when we create the certificate resource, and we can then inspect the secret using this command:
 
@@ -323,9 +318,8 @@ Now, that we correctly obtained a staging certificate, it's time to configure ce
               key: api-key
   ```
 
-  {{<caution>}}
-  Make sure you replace the email in the manifest above.
-  {{</caution>}}
+  > [!CAUTION]
+  > Make sure you replace the email in the manifest above.
 
 1. Create the staging `ClusterIssuer` in the cluster
 
@@ -422,9 +416,8 @@ spec:
     secretName: k3s-maxdon-tech-tls         # Match the name of the secret that contains the certificate
 ```
 
-{{<caution>}}
-Make sure you replace the host **k3s.maxdon.tech** with your domain.
-{{</caution>}}
+> [!CAUTION]
+> Make sure you replace the host **k3s.maxdon.tech** with your domain.
 
 Now let's create all the resources in the cluster using our friend kubectl as follows:
 

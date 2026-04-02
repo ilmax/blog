@@ -25,9 +25,8 @@ If you want to use the secretless approach, you can refer to my other post here 
 
 {{<article link="/posts/github-azure-oidc/">}}
 
-{{<tip>}}
-The article above uses an App registration with a service principal, the same can also be achieved via a user-assigned managed identity. You can find more details on the Microsoft [documentation](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure-openid-connect).
-{{</tip>}}
+> [!TIP]
+> The article above uses an App registration with a service principal, the same can also be achieved via a user-assigned managed identity. You can find more details on the Microsoft [documentation](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure-openid-connect).
 
 ## Enable Entra-only authentication
 
@@ -75,14 +74,13 @@ ALTER ROLE db_owner ADD MEMBER [ServicePrincipalName];
 -- Depending on your requirements you can also use a less privileged role, e.g. db_ddladmin
 ```
 
-{{<note>}}
-When creating a user mapped to an Azure service principal (e.g., when using FROM EXTERNAL PROVIDER), you must connect to the database using Microsoft Entra authentication. If you try to run this script using a regular username and password connection, you will get an error message like the following:
-
-`
-Failed to execute query. Error: Principal 'ServicePrincipalName' could not be created.
-Only connections established with Active Directory accounts can create other Active Directory users.
-`
-{{</note>}}
+> [!NOTE]
+> When creating a user mapped to an Azure service principal (e.g., when using FROM EXTERNAL PROVIDER), you must connect to the database using Microsoft Entra authentication. If you try to run this script using a regular username and password connection, you will get an error message like the following:
+>
+> `
+> Failed to execute query. Error: Principal 'ServicePrincipalName' could not be created.
+> Only connections established with Active Directory accounts can create other Active Directory users.
+> `
 
 ### Terraform mssql_user
 
@@ -114,11 +112,10 @@ The connection string format should be the following:
 Server=tcp:{SqlServerName}.database.windows.net,1433; Initial Catalog={DatabaseName}; Authentication=Active Directory Default; Encrypt=True; TrustServerCertificate=False; Connection Timeout=30;"
 `
 
-{{<note>}}
-It would be nice if [az cli](https://learn.microsoft.com/en-us/cli/azure/sql/db?view=azure-cli-latest#az-sql-db-show-connection-string) had support for creating the correct connection string but, as of now, this is not supported.
-
-Make sure you replace **SqlServerName** and **DatabaseName** with the appropriate values.
-{{</note>}}
+> [!NOTE]
+> It would be nice if [az cli](https://learn.microsoft.com/en-us/cli/azure/sql/db?view=azure-cli-latest#az-sql-db-show-connection-string) had support for creating the correct connection string but, as of now, this is not supported.
+>
+> Make sure you replace **SqlServerName** and **DatabaseName** with the appropriate values.
 
 ### Publishing the dacpac
 
