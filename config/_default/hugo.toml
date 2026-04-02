@@ -18,6 +18,8 @@ enableEmoji = true
 
 [imaging]
   anchor = 'Center'
+  quality = 80
+  resampleFilter = 'Lanczos'
 
 [taxonomies]
   tag = "tags"

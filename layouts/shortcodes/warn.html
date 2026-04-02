@@ -1,9 +1,0 @@
-{{ $icon := resources.Get (print "icons/triangle-exclamation.svg") }}
-<div class="alert alert-warn" dir="auto">
-    <p class="alert-title block">        
-        {{ $icon.Content | safeHTML }} Warn
-    </p>
-    <p>
-        {{- .Inner | markdownify -}}
-    </p>
-</div>

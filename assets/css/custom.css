@@ -1,58 +1,6 @@
-:root {
-    --color-tip: #57ab5a;
-    --color-warn: #d3643cdd;
-    --color-caution: #ee293d;
-    --color-note: #5c9cdd;
-}
-
-.alert {
-    border-left: .25em solid #f0ad4e;
-    padding: 0 16px;
-}
-
-.alert-tip {
-    border-left-color: var(--color-tip);
-}
-
-.alert-warn {
-    border-left-color: var(--color-warn);
-}
-
-.alert-caution {
-    border-left-color: var(--color-caution);
-}
-
-.alert-note {
-    border-left-color: var(--color-note);
-}
-
-.alert-tip .alert-title {
-    color: var(--color-tip);
-}
-
-.alert-warn .alert-title {
-    color: var(--color-warn);
-}
-
-.alert-caution .alert-title {
-    color: var(--color-caution);
-}
-
-.alert-note .alert-title {
-    color: var(--color-note);
-}
-
-.alert-title {
-    display: flex;
-    align-items: center;
-    font-weight: 600;
-}
-
-.alert-title > svg {
-    width: 16px;
-    height: 16px;
-    margin-right: 8px;
-    color: inherit;
+.article-content,
+#single_header {
+    max-width: 85ch;
 }
 
 #TOCView {

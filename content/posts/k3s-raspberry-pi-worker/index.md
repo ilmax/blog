@@ -30,9 +30,8 @@ Similar to the previous article, we will go through some basic O.S. configuratio
     sudo apt autoclean
     ```
 
-{{<note>}}
-More information on what is the **local** domain and how it works can be found [here](https://en.wikipedia.org/wiki/.local)
-{{</note>}}
+> [!NOTE]
+> More information on what is the **local** domain and how it works can be found [here](https://en.wikipedia.org/wiki/.local)
 
 ### Configure a static IP on the Raspberry PI
 
@@ -134,10 +133,9 @@ If you want to change the role from `<none>` to `worker`, we need to add a label
 kubectl label node pi-node-02 kubernetes.io/role=worker
 ```
 
-{{<warn>}}
-Please note that's not possible to specify the label `kubernetes.io/role=worker` at K3s installation time using the parameter `--node-label`.
-The installation will result in an error, thus we have to manually label the node after the installation
-{{</warn>}}
+> [!WARNING]
+> Please note that's not possible to specify the label `kubernetes.io/role=worker` at K3s installation time using the parameter `--node-label`.
+> The installation will result in an error, thus we have to manually label the node after the installation
 
 ## Lens Metrics
 

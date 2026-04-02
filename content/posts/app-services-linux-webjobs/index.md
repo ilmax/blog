@@ -4,6 +4,7 @@ description: In this step by step guide, you will see how to create and deploy a
 date: 2024-10-03T08:18:59+02:00
 draft: false
 tags: [azure, dotnet, linux, webjobs]
+type: "featured"
 ---
 
 In this blog post, I want to explore one of the MS Build 2024 announcements that stood out to me. The reason it caught my eye is that WebJobs, which were previously only available for Windows-based App Service instances, now have expanded support. After reviewing the rather sparse documentation on Microsoft Learn, I decided to document the setup process for my own reference and to share with others who might find it helpful.
@@ -17,9 +18,8 @@ WebJobs is a feature of Azure App Service that enables you to run a program or s
 You can use the Azure WebJobs SDK with WebJobs to simplify many programming tasks.
 {{</lead>}}
 
-{{<warn>}}
-Please note that at the time of writing, October 2024, WebJobs for Linux is still in **preview**, so what I'm writing here may not be accurate when the functionality reaches GA.
-{{</warn>}}
+> [!WARNING]
+> Please note that at the time of writing, October 2024, WebJobs for Linux is still in **preview**, so what I'm writing here may not be accurate when the functionality reaches GA.
 
 ## Types of WebJobs
 
@@ -38,9 +38,8 @@ The WebJobs SDK is very similar to the Azure Functions SDK, it provides triggers
 
 As mentioned above, until the MS Build conference in 2024, WebJobs were only available on a Windows-based App Service.
 
-{{<note>}}
-Here's the blog post from the App Service team announcing the availability of Linux WebJobs [https://azure.github.io/AppService/2024/04/04/Public-Preview-Sidecars-Webjobs.html](https://azure.github.io/AppService/2024/04/04/Public-Preview-Sidecars-Webjobs.html)
-{{</note>}}
+> [!NOTE]
+> Here's the blog post from the App Service team announcing the availability of Linux WebJobs [https://azure.github.io/AppService/2024/04/04/Public-Preview-Sidecars-Webjobs.html](https://azure.github.io/AppService/2024/04/04/Public-Preview-Sidecars-Webjobs.html)
 
 Let's now look at how to create and deploy a .NET WebJob on a Linux-based App Service.
 
@@ -112,9 +111,8 @@ This is achieved using this little MSBuild script:
 
 With this code in place in the webapi project file, deployment is now as easy as deploying the webapi.
 
-{{<note>}}
-For the sake of completeness, I would also like to mention this [suggested approach](https://learn.microsoft.com/en-us/azure/app-service/webjobs-dotnet-deploy-vs) to deploying WebJobs, but haven't looked into it yet.
-{{</note>}}
+> [!NOTE]
+> For the sake of completeness, I would also like to mention this [suggested approach](https://learn.microsoft.com/en-us/azure/app-service/webjobs-dotnet-deploy-vs) to deploying WebJobs, but haven't looked into it yet.
 
 After following all the steps and defined in the MS Learn documentation [here](https://learn.microsoft.com/en-us/azure/app-service/webjobs-sdk-get-started#create-a-console-app) on how to create a continuous WenJob using the WebJob SDK, I've had to:
 

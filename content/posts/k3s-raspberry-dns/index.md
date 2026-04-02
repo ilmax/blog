@@ -37,9 +37,8 @@ ExternalDNS can monitor several different types of Kubernetes resources used to 
 
 A source represents a single Kubernetes resource type that ExternalDNS watches for changes and is then used to construct the DNS records that will be synced in the DNS provider. The sources that ExternalDNS monitors are configurable, and it supports multiple types of sources.
 
-{{<tip>}}
-The list of supported sources can be found in the [documentation](https://kubernetes-sigs.github.io/external-dns/v0.14.2/sources/sources/).
-{{</tip>}}
+> [!TIP]
+> The list of supported sources can be found in the [documentation](https://kubernetes-sigs.github.io/external-dns/v0.14.2/sources/sources/).
 
 ### Providers
 
@@ -54,9 +53,8 @@ So far during my testing, the CloudFlare provider worked flawlessly for both add
 
 As is the case for the sources, the provider is also configurable.
 
-{{<tip>}}
-The list of supported providers and their respective stability levels can be found in the [documentation](https://kubernetes-sigs.github.io/external-dns/v0.14.2/#status-of-in-tree-providers).
-{{</tip>}}
+> [!TIP]
+> The list of supported providers and their respective stability levels can be found in the [documentation](https://kubernetes-sigs.github.io/external-dns/v0.14.2/#status-of-in-tree-providers).
 
 ### Annotations
 
@@ -65,9 +63,8 @@ ExternalDNS comes with a slew of annotations that allow you to customize its beh
 - **external-dns.alpha.kubernetes.io/ttl** that specifies the time to live (TTL) of the DNS record
 - **external-dns.alpha.kubernetes.io/target** that specifies the DNS record targets (Its usage will be covered in the [Recipes](#recipes) section)
 
-{{<tip>}}
-The list of supported annotations can be found in the [documentation](https://kubernetes-sigs.github.io/external-dns/v0.14.2/annotations/annotations/).
-{{</tip>}}
+> [!TIP]
+> The list of supported annotations can be found in the [documentation](https://kubernetes-sigs.github.io/external-dns/v0.14.2/annotations/annotations/).
 
 ### Record Ownership
 
@@ -151,9 +148,8 @@ Before using the Gateway resource in Kubernetes you have to install the latest i
 kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.1.0/experimental-install.yaml
 ```
 
-{{<note>}}
-I won't configure TLS with the Gateway API because I haven't yet figured out how it works, I'd like to configure a different certificate for every site, but it seems to me that, at the moment, you either use a single TLS certificate with all the hostnames at the gateway controller level, or you have to use a `TLSRoute` that's still in the experimental channel at the time of writing (August 2024)
-{{</note>}}
+> [!NOTE]
+> I won't configure TLS with the Gateway API because I haven't yet figured out how it works, I'd like to configure a different certificate for every site, but it seems to me that, at the moment, you either use a single TLS certificate with all the hostnames at the gateway controller level, or you have to use a `TLSRoute` that's still in the experimental channel at the time of writing (August 2024)
 
 Traefik installation also needs to be updated to enable the kubernetesGateway provider, specify which namespaces are allowed to associate routes to the gateway and specify what to use as the Gateway's address via one of the supported ways.
 
@@ -165,9 +161,8 @@ Traefik's Gateway address can be configured in 3 different ways:
 
 I've opted to use the service reference, so I configured it to point to Traefik's own ingress controller service.
 
-{{<tip>}}
-If you want to know more about Traefik's Gateway address, make sure to check out the [documentation](https://doc.traefik.io/traefik/providers/kubernetes-gateway/#statusaddress)
-{{</tip>}}
+> [!TIP]
+> If you want to know more about Traefik's Gateway address, make sure to check out the [documentation](https://doc.traefik.io/traefik/providers/kubernetes-gateway/#statusaddress)
 
 ```yml
 # I've added a comment to all the changed
@@ -237,9 +232,8 @@ My test deployment is the classic NGINX website, exposed in different ways, I've
 - Traefik IngressRoute
 - Gateway HTTPRoute
 
-{{<tip>}}
-Each recipe title tells you what resource is used to expose the test NGINX deployment and what record will be generated in the DNS provider.
-{{</tip>}}
+> [!TIP]
+> Each recipe title tells you what resource is used to expose the test NGINX deployment and what record will be generated in the DNS provider.
 
 Here's the invariant part of the manifest, it's just a namespace and the NGINX deployment:
 
@@ -429,9 +423,8 @@ TXT     test        "heritage=external-dns,external-dns/owner=external-dns,exter
 
 ### HTTPRoute - A record
 
-{{<note>}}
-This requires to install the Gateway API as documented [here](#traefik--gateway-api-optional)
-{{</note>}}
+> [!NOTE]
+> This requires to install the Gateway API as documented [here](#traefik--gateway-api-optional)
 
 ```yml
 apiVersion: v1
@@ -485,9 +478,8 @@ TXT     test        "heritage=external-dns,external-dns/owner=external-dns,exter
 
 ### HTTPRoute - CNAME record
 
-{{<note>}}
-This requires to install the Gateway API as documented [here](#traefik--gateway-api-optional)
-{{</note>}}
+> [!NOTE]
+> This requires to install the Gateway API as documented [here](#traefik--gateway-api-optional)
 
 To get a CNAME generated when using the gateway `HTTPRoute` resource, we need to add the target annotation on the gateway class itself, rather than on the `HTTPRoute` resource while our NGINX deployment can stay unchanged from the previous one.
 Since the gateway class is created by Traefik, we need to change the values file used to install Traefik and install it again, you can see the updated value file below:
