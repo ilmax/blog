@@ -14,13 +14,13 @@ When I started building this homelab cluster I already had a several years of [T
 
 The obvious tool for this is [Ansible](https://www.ansible.com/). Unlike Terraform, Ansible doesn't manage state files and doesn't model resources, it just runs tasks over SSH, which is exactly what you need for configuring Linux boxes. To get up to speed quickly I picked up [**Ansible for DevOps**](https://www.ansiblefordevops.com/) by Jeff Geerling. I can't recommend it highly enough, Jeff explains the concepts clearly and always gives practical, real-world examples.
 
-The specific problem I wanted to solve: I got tired of flashing the OS manually. Every time I wanted to start fresh — to test a new Raspberry Pi OS release, to fix a wrong configuration, or just to rebuild the cluster cleanly I had to:
+I configured all the OS setup with Ansible, installing K3s, updating k3s, updating packages and everything else, but not everything was automated yet, OS updates still required a lot of time and manual thinkering. I got tired of flashing the OS manually. Every time I wanted to start fresh — to test a new Raspberry Pi OS release, to fix a wrong configuration, or just to rebuild the cluster cleanly I had to:
 
 1. Pull each SD card (or NVMe drive) out of the Pi
 2. Flash it with the Raspberry Pi Imager on my laptop
 3. Put it back, power on, and wait
 
-Multiply that by four nodes and it stops being fun. There had to be a better way to do this fully over the network, without touching any hardware.
+Multiply that by the number of nodes and it stops being fun. There had to be a better way to do this fully over the network, without touching any hardware.
 
 This post explains how I automated the whole process.
 
