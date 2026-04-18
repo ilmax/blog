@@ -1,0 +1,109 @@
+direction: right
+
+vars: {
+  d2-config: {
+    layout-engine: elk
+  }
+}
+
+client: Client {
+  shape: rectangle
+}
+
+edge: "Edge load balancer" {
+  style: {
+    fill: "#f0f4ff"
+    stroke: "#6c757d"
+    stroke-dash: 4
+  }
+
+  vip: "VIP 192.168.20.127\n(VRRP)" {
+    shape: hexagon
+    style: {
+      fill: "#fff3cd"
+      stroke: "#ffc107"
+    }
+  }
+
+  radxa01: "radxa-01\nkeepalived + IPVS\n(MASTER)" {
+    shape: rectangle
+    width: 200
+    style: {
+      fill: "#d4edda"
+      stroke: "#155724"
+    }
+  }
+
+  radxa02: "radxa-02\nkeepalived\n(BACKUP)" {
+    shape: rectangle
+    width: 200
+    style: {
+      fill: "#e2e3e5"
+      stroke: "#6c757d"
+    }
+  }
+
+  vip -> radxa01
+  vip -> radxa02: {
+    style.stroke-dash: 4
+    style.stroke: "#999"
+  }
+}
+
+cluster: "K3s cluster" {
+  style: {
+    fill: "#fff5f5"
+    stroke: "#6c757d"
+    stroke-dash: 4
+  }
+
+  worker1: "worker-1\n:30080 / :30443" {
+    shape: rectangle
+    style: {
+      fill: "#f8d7da"
+      stroke: "#721c24"
+    }
+  }
+
+  worker2: "worker-2\n:30080 / :30443" {
+    shape: rectangle
+    style: {
+      fill: "#f8d7da"
+      stroke: "#721c24"
+    }
+  }
+
+  workerN: "worker-N\n:30080 / :30443" {
+    shape: rectangle
+    style: {
+      fill: "#f8d7da"
+      stroke: "#721c24"
+    }
+  }
+
+  incluster: "in-cluster Traefik" {
+    shape: rectangle
+    style: {
+      fill: "#d1ecf1"
+      stroke: "#0c5460"
+    }
+  }
+
+  pods: Pods {
+    shape: rectangle
+    style: {
+      fill: "#d4edda"
+      stroke: "#155724"
+    }
+  }
+
+  worker1 -> incluster
+  worker2 -> incluster
+  workerN -> incluster
+  incluster -> pods
+}
+
+client -> edge.vip: "request"
+edge.radxa01 -> cluster.worker1: "IPVS NAT\n(round-robin)"
+edge.radxa01 -> cluster.worker2
+edge.radxa01 -> cluster.workerN
