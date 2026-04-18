@@ -1,0 +1,32 @@
+direction: down
+
+download: "Download OS image\nto control machine"
+check: "Check OS version" {
+  shape: diamond
+}
+end: "End" {
+  shape: circle
+  style.fill: "#d4edda"
+}
+normalize: "Normalize\n(exit overlayroot if present)"
+preflight: "Preflight checks\n(RAM ≥ OS image size, boot device, OS)"
+overlayroot: "Pivot root to RAM\n(overlayroot + reboot)"
+copy: "Copy OS image to Pi /tmp\n(all in RAM)"
+decompress: "Decompress OS image\n(xz → .img)"
+inject: "Inject cloud-init config\n(user-data, network-config, meta-data)"
+flash: "Flash with dd\n(OS image → NVMe / SD card)"
+reboot: "Reboot into new OS"
+verify: "Verify new OS\n(cloud-init complete, SSH, services)"
+
+download -> check
+check -> end: "already on target version"
+check -> normalize: "needs update"
+normalize -> preflight
+preflight -> overlayroot
+overlayroot -> copy
+copy -> decompress
+decompress -> inject
+inject -> flash
+flash -> reboot
+reboot -> verify
+verify -> end
