@@ -1,0 +1,99 @@
+direction: right
+
+vars: {
+  d2-config: {
+    layout-engine: elk
+  }
+}
+
+client: Client {
+  shape: rectangle
+}
+
+cluster: "K3s Cluster" {
+  style: {
+    fill: "#f0f0f0"
+    stroke: "#333"
+    stroke-width: 2
+  }
+
+  speakers: "MetalLB Speakers" {
+    direction: down
+    style: {
+      fill: "#fce4ec"
+      stroke: "#c62828"
+      stroke-dash: 4
+    }
+
+    standby1: "worker-1 (standby)" {
+      shape: rectangle
+      style: {
+        fill: "#e2e3e5"
+        stroke: "#6c757d"
+      }
+    }
+
+    leader: "worker-2 (leader)" {
+      shape: rectangle
+      style: {
+        fill: "#f8d7da"
+        stroke: "#dc3545"
+      }
+
+      vip: "VIP" {
+        style: {
+          fill: "#fff3cd"
+          stroke: "#ffc107"
+        }
+      }
+    }
+
+    standby2: "worker-N (standby)" {
+      shape: rectangle
+      style: {
+        fill: "#e2e3e5"
+        stroke: "#6c757d"
+      }
+    }
+
+  }
+
+  pods: "Pods" {
+    direction: down
+    style: {
+      fill: "#e8f5e9"
+      stroke: "#2e7d32"
+      stroke-dash: 4
+    }
+
+    pod1: "pod-1" {
+      shape: rectangle
+      style: {
+        fill: "#d4edda"
+        stroke: "#28a745"
+      }
+    }
+
+    pod2: "pod-2" {
+      shape: rectangle
+      style: {
+        fill: "#d4edda"
+        stroke: "#28a745"
+      }
+    }
+
+    pod3: "pod-3" {
+      shape: rectangle
+      style: {
+        fill: "#d4edda"
+        stroke: "#28a745"
+      }
+    }
+  }
+
+  speakers.leader -> pods: "internal routing\nvia kube-proxy"
+  speakers.leader <- pods
+}
+
+client -> cluster.speakers.leader: "request"
+client <- cluster.speakers.leader: "response"
