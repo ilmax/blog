@@ -2,7 +2,7 @@
 title: "K3s on Raspberry Pi — Moving the VIP outside the cluster with Keepalived"
 description: "How I replaced MetalLB L2 with a dedicated external edge layer — two Radxa Zero 3E boards running keepalived (VRRP + IPVS NAT), forwarding directly to in-cluster Traefik NodePorts, fully provisioned with Ansible"
 date: 2026-04-18T12:43:17+02:00
-draft: true
+draft: false
 series: ["K3s on Raspberry PI"]
 series_order: 6
 tags: ["Kubernetes", "homelab", "rpi", "ansible", "tutorial", "networking"]
