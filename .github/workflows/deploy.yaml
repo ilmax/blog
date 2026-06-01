@@ -61,7 +61,7 @@ jobs:
         uses: actions/deploy-pages@v5
 
       - name: Push changes to IndexNow
-        uses: bojieyang/indexnow-action@v2
+        uses: bojieyang/indexnow-action@v3
         with:
           sitemap-location: "${{ steps.deployment.outputs.page_url }}sitemap.xml"
           since: 1
