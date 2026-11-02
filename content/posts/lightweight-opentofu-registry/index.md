@@ -53,21 +53,21 @@ There are two distinct authentication boundaries here, and they have nothing to 
 {{< mermaid >}}
 flowchart LR
     C["tofu init<br/>(client)"] -->|"1. inbound: open, no auth"| R["Registry"]
-    R -->|"2. outbound: per-provider auth<br/>(none or SPIFFE)"| F["Forgejo / GitHub<br/>releases"]
+    R -->|"2. outbound: per-provider auth<br/>(anonymous or SPIFFE)"| F["Forgejo / GitHub<br/>releases"]
 {{< /mermaid >}}
 
 #### 1. Reaching the registry: deliberately open
 
-Anyone who can reach the registry over the network can run `tofu init` against it and browse the docs. There is no login, no token and no per-user access control, and that is a conscious choice, not an omission. It is a service only I use, on a network I control, so network isolation is the access control, and I did not want to take on the complexity of user management. What is served is also not secret, and the client does not have to trust the registry for integrity: `tofu init` verifies the cached provider zips against the publisher's signing key, so a tampered download would be rejected.
+Anyone who can reach the registry over the network can run `tofu init` against it and browse the docs. There is no login, no token and no per-user access control, and that is a conscious choice, not an omission. It is a service only I use, on a network I control, so network isolation is the access control, and I did not want to take on the complexity of user management. The client still verifies each zip against the published checksums and signature, but since the signing key is served by the registry itself, that check guards against corruption.
 
 #### 2. Fetching releases: authenticating to the upstream forge
 
 This is the part that needed real work. The refresh loop has to download release assets from the source host, and my provider lives in a private Forgejo instance, so the registry must authenticate. Authentication is a per-provider setting in the YAML, and the code knows two modes today:
 
-- `none`: used for the public GitHub providers. The registry calls the releases API anonymously.
+- anonymous (the default, no `auth` set): used for the public GitHub providers. The registry calls the releases API without credentials.
 - `spiffe`: used for the private Forgejo instance.
 
-For Forgejo I wanted to avoid long-lived shared secrets, so instead of a PAT the registry presents a SPIFFE JWT-SVID, issued through SPIRE. The container runs in my homelab with a workload identity (`spiffe://example.org/ns/registry/sa/simple-tofu-registry`), and Forgejo is configured with an [Authorized Integration](https://forgejo.org/docs/latest/user/api/authorized-integrations/) of type Generic JWT: it trusts my OIDC discovery issuer, pins the exact workload identity with a claim rule on `sub`, and grants `read:repository` on the one repo it serves.
+For Forgejo I wanted to avoid long-lived shared secrets, so instead of a PAT the registry presents a SPIFFE JWT-SVID, issued through SPIRE. The container runs in my homelab with a workload identity (`spiffe://example.org/ns/registry/sa/slim-opentofu-registry`), and Forgejo is configured with an [Authorized Integration](https://forgejo.org/docs/latest/user/api/authorized-integrations/) of type Generic JWT: it trusts my OIDC discovery issuer, pins the exact workload identity with a claim rule on `sub`, and grants `read:repository` on the one repo it serves.
 
 The credential is therefore a short-lived JWT minted for that workload, and nobody needs to rotate a long-lived token. When the workload dies, the identity dies with it. A JWT-SVID can still leak while it is valid, but its short lifetime limits the window in which it could be misused compared with a long-lived PAT.
 
